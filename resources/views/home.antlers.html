@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Winkelwagen </title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="mt-20">
+            <h1 class="flex items-center justify-center font-bold text-blue-600 text-md lg:text-3xl">Winkelwagen
+            </h1>
+        </div>
+        <div class="container p-12 mx-auto">
+            <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
+                <div class="flex flex-col md:w-full">
+                    <h2 class="mb-4 font-bold md:text-xl text-heading ">QR
+                    </h2>
+                    <form class="justify-center w-full mx-auto" method="post" action>
+                            <div class="space-x-0 lg:flex lg:space-x-4">
+                                <div class="w-full lg:w-1/2">
+                                    <label for="first_name" class="block mb-3 text-sm font-semibold text-gray-500">Voornaam</label>
+                                    <input name="first_name" type="text" placeholder="Voornaam"
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
+                                </div>
+                                <div class="w-full lg:w-1/2 ">
+                                    <label for="last_name" class="block mb-3 text-sm font-semibold text-gray-500">Achternaam</label>
+                                    <input name="last_name" type="text" placeholder="Achternaam"
+                                        class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
+                                </div>
+                            </div>
+                            <div class="mt-4 border border-gray-300 rounded-md">
+                                
+                    
+                                <div class="p-5">
+                                    <table class="table table-auto w-full" id="products_table">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-left font-semibold text-gray-500">QR</th>
+                                            <th class="text-left font-semibold text-gray-500" width="150">Aantal</th>
+                                            <th class="text-left" width="100"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="p-1">
+                                            <select name="invoiceProducts[0][product_id]" class="focus:outline-none w-full border border-gray-300 rounded-md p-1" wire:model="invoiceProducts.0.product_id">
+                                            <option value=""></option>                                                                                               
+                                            </select>
+                                            </td>
+                                            <form>
+                                            <td class="p-1">
+                                            <input type="number" class="focus:outline-none w-full border border-gray-300 rounded-md p-1" id="Aantalqr" oninput="myFunction()">
+                                            </td>
+                                            </form>
+                                            <td class="p-1">
+                                                <button class="hover:bg-indigo-600 p-1 bg-indigo-500 border border-indigo-600 rounded-md text-white focus:outline-none" wire:click.prevent="addProduct">+ Voeg toe</button>
+                                            </div>
+                                            <td class="p-1">
+                                            <button class="hover:bg-red-600 ml-1 p-1 bg-red-500 border border-red-600 rounded-md text-white focus:outline-none" wire:click.prevent="removeProduct(0)">Verwijderen</button>
+                                            </td>
+                                            </tr>
+                                            </tbody>
+                                    </table>
+                                    <div class="flex items-center justify-center w-full">
+                                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                            </div>
+                                            <input id="dropzone-file" type="file" class="hidden" />
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="flex justify-end">
+                                        <table>
+                                            <tbody><tr class="">
+                                                <th class="p-2">Totaal</th>
+                                                 <td id="bedragExclBtw " class="p-2">€0.00</td>
+                                            </tr>
+                                            <tr class="border-t border-gray-300">
+                                                <th class="p-2">BTW</th>
+                                                <td class="p-2">%21</td>
+                                            </tr>
+                                            <tr class="border-t border-gray-300">
+                                                <th>Subtotaal</th>
+                                                <td id="bedragInclBtw " class="p-2">€0.00</td>
+                                            </tr>
+                                        </tbody></table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button
+                                    class="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900">Betalen</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+    </body>
+    <script>
+        function myFunction() {
+        var aantal = document.getElementById("Aantalqr").value;
+        var total = aantal * 1;
+        var extotal = (aantal/100)*21 - aantal;
+        document.getElementById("bedragInclBtw ").innerHTML = total;
+        document.getElementById("bedragExclBtw ").innerHTML = extotal;
+         
+    }
+    </script>
+</html> 

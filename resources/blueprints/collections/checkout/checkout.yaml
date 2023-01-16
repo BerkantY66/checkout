@@ -1,0 +1,40 @@
+sections:
+  main:
+    display: Main
+    fields:
+      -
+        handle: title
+        field:
+          type: text
+          required: true
+      -
+        handle: first_name
+        field:
+          input_type: text
+          antlers: false
+          display: first_name
+          type: text
+          icon: text
+          listable: hidden
+          instructions_position: above
+          visibility: visible
+          always_save: false
+          validate:
+            - required
+            - 'min:2'
+      -
+        handle: last_name
+        field:
+          input_type: text
+          antlers: false
+          display: last_name
+          type: text
+          icon: text
+          listable: hidden
+          instructions_position: above
+          visibility: visible
+          always_save: false
+          validate:
+            - required
+            - 'min:2'
+title: checkout
